@@ -2,10 +2,11 @@ package site.nomoreparties.stellarburgers.models;
 
 import lombok.Data;
 
+import java.util.List;
+
 //Класс содержит данные заказа
 @Data
 public class Order {
 
-    private String[] ingredients;
-    //private String accessToken;
+    private List<String> ingredients;
 }

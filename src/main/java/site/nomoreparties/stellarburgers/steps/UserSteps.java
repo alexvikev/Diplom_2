@@ -18,7 +18,6 @@ public class UserSteps {
                 .toLowerCase()) + "@gmail.com");
         user.setPassword(RandomStringUtils.randomAlphabetic(10));
         user.setName(RandomStringUtils.randomAlphabetic(10));
-
     }
 
     @Step("Изменить email пользователя")
@@ -35,6 +34,12 @@ public class UserSteps {
     @Step("Изменить имя пользователя")
     public void changeUserName(User user){
         user.setName(RandomStringUtils.randomAlphabetic(8));
+    }
+
+    @Step("Установить токен авторизации пользователю")
+    public void setUserAccessToken(User user){
+        String accessToken = userSignIn(user).extract().body().path("accessToken");
+        user.setAccessToken(accessToken);
     }
 
     @Step("Содать нового пользователя")
@@ -83,8 +88,8 @@ public class UserSteps {
     }
 
     @Step("Удалить пользователя")
-    public ValidatableResponse deleteUser(User user){
-        return given()
+    public void deleteUser(User user){
+        given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", user.getAccessToken())
                 .baseUri(RC_STAND_URL)

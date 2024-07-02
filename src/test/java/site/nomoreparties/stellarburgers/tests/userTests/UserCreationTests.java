@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.is;
 public class UserCreationTests {
     private User user;
     private UserSteps userSteps;
+    private String accessToken;
 
     @Before
     public void setUp(){
@@ -19,6 +20,7 @@ public class UserCreationTests {
         userSteps = new UserSteps();
 
         userSteps.generateUserData(user);
+
     }
 
     @DisplayName("Пользователя можно создать")
@@ -33,8 +35,7 @@ public class UserCreationTests {
     @DisplayName("Нельзя создать двух одинаковых пользователей")
     @Test
     public void userDuplicateReturnFalseTest(){
-        userSteps
-                .createUser(user);
+        userSteps.createUser(user);
 
         userSteps
                 .createUser(user)
@@ -72,11 +73,8 @@ public class UserCreationTests {
 
     @After
     public void tearDown(){
-        String accessToken = userSteps.userSignIn(user)
-                .extract().body().path("accessToken");
 
-        if (accessToken != null){
-            user.setAccessToken(accessToken);
+        if (user.getAccessToken() != null){
             userSteps.deleteUser(user);
         }
     }

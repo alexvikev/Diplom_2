@@ -13,6 +13,7 @@ import static org.hamcrest.Matchers.is;
 public class UserSignInTests {
     private User user;
     private UserSteps userSteps;
+    private String accessToken;
 
     @Before
     public void setUp(){
@@ -20,7 +21,6 @@ public class UserSignInTests {
         userSteps = new UserSteps();
 
         userSteps.generateUserData(user);
-
     }
 
     @DisplayName("Успешная авторизация пользователя")
@@ -64,14 +64,10 @@ public class UserSignInTests {
                 .body("message", is("email or password are incorrect"));
     }
 
-
     @After
     public void tearDown(){
-        String accessToken = userSteps.userSignIn(user)
-                .extract().body().path("accessToken");
 
-        if (accessToken != null){
-            user.setAccessToken(accessToken);
+        if (user.getAccessToken() != null){
             userSteps.deleteUser(user);
         }
     }

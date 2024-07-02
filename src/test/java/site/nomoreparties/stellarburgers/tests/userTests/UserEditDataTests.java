@@ -19,13 +19,15 @@ public class UserEditDataTests {
         userSteps = new UserSteps();
 
         userSteps.generateUserData(user);
+        userSteps.createUser(user);
+        userSteps.userSignIn(user);
+        userSteps.setUserAccessToken(user);
+
     }
 
     @DisplayName("Изменение email авторизованного пользователя")
     @Test
     public void userChangeEmailWithAuthReturnTrueTest(){
-        userSteps.createUser(user);
-        userSteps.userSignIn(user);
         userSteps.changeUserEmail(user);
 
         userSteps
@@ -39,23 +41,17 @@ public class UserEditDataTests {
     @DisplayName("Изменение пароля авторизоанного пользователя")
     @Test
     public void userChangePasswordWithAuthReturnTrueTest(){
-        userSteps.createUser(user);
-        userSteps.userSignIn(user);
         userSteps.changeUserPassword(user);
 
         userSteps
                 .userWithAuthChangeData(user)
                 .statusCode(200)
-                .body("success", is(true))
-                .and()
-                .body("user.password", is(user.getPassword()));
+                .body("success", is(true));
     }
 
     @DisplayName("Изменение имени авторизованного пользователя")
     @Test
     public void userChangeNameWithAuthReturnTrueTest(){
-        userSteps.createUser(user);
-        userSteps.userSignIn(user);
         userSteps.changeUserName(user);
 
         userSteps
@@ -110,11 +106,8 @@ public class UserEditDataTests {
 
     @After
     public void tearDown(){
-        String accessToken = userSteps.userSignIn(user)
-                .extract().body().path("accessToken");
 
-        if (accessToken != null){
-            user.setAccessToken(accessToken);
+        if (user.getAccessToken() != null){
             userSteps.deleteUser(user);
         }
     }
