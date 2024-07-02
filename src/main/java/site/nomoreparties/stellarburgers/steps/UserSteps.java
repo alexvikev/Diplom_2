@@ -38,7 +38,8 @@ public class UserSteps {
 
     @Step("Установить токен авторизации пользователю")
     public void setUserAccessToken(User user){
-        String accessToken = userSignIn(user).extract().body().path("accessToken");
+        String accessToken = userSignIn(user).extract()
+                .body().path("accessToken");
         user.setAccessToken(accessToken);
     }
 

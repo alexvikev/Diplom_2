@@ -12,7 +12,6 @@ import static org.hamcrest.Matchers.notNullValue;
 
 //Класс содержит тесты получения заказов конкретного пользователя
 public class OrdersGetByUserTest {
-
     private User user;
     private OrderSteps orderSteps;
     private UserSteps userSteps;

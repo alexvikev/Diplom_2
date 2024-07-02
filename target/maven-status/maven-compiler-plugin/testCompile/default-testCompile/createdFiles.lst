@@ -1,0 +1,5 @@
+site\nomoreparties\stellarburgers\tests\userTests\UserSignInTests.class
+site\nomoreparties\stellarburgers\tests\userTests\UserCreationTests.class
+site\nomoreparties\stellarburgers\tests\orderTests\OrdersCreationTests.class
+site\nomoreparties\stellarburgers\tests\userTests\UserEditDataTests.class
+site\nomoreparties\stellarburgers\tests\orderTests\OrdersGetByUserTest.class
