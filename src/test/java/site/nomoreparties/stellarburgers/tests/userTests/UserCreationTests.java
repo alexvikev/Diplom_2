@@ -12,10 +12,11 @@ import static org.hamcrest.Matchers.is;
 public class UserCreationTests {
     private User user;
     private UserSteps userSteps;
-    private String accessToken;
 
     @Before
     public void setUp(){
+        //RestAssured.filters(new RequestLoggingFilter());
+
         user = new User();
         userSteps = new UserSteps();
 
@@ -73,9 +74,12 @@ public class UserCreationTests {
 
     @After
     public void tearDown(){
+        userSteps.setUserAccessToken(user);
 
         if (user.getAccessToken() != null){
             userSteps.deleteUser(user);
+        } else {
+            System.out.println("Токен null");
         }
     }
 }

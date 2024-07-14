@@ -24,7 +24,7 @@ public class OrdersCreationTests {
 
     @Before
     public void setUp(){
-        RestAssured.filters(new RequestLoggingFilter());
+        //RestAssured.filters(new RequestLoggingFilter());
 
         user = new User();
         order = new Order();
@@ -131,9 +131,12 @@ public class OrdersCreationTests {
 
     @After
     public void tearDown(){
+        userSteps.setUserAccessToken(user);
 
         if (user.getAccessToken() != null){
             userSteps.deleteUser(user);
+        } else {
+            System.out.println("Токен null");
         }
     }
 }

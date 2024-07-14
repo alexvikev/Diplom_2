@@ -53,9 +53,12 @@ public class OrdersGetByUserTest {
 
     @After
     public void tearDown(){
+        userSteps.setUserAccessToken(user);
 
         if (user.getAccessToken() != null){
             userSteps.deleteUser(user);
+        } else {
+            System.out.println("Токен null");
         }
     }
 

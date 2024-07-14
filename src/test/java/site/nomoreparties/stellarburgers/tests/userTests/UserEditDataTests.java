@@ -1,6 +1,8 @@
 package site.nomoreparties.stellarburgers.tests.userTests;
 
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,8 @@ public class UserEditDataTests {
 
     @Before
     public void setUp(){
+//        RestAssured.filters(new RequestLoggingFilter());
+
         user = new User();
         userSteps = new UserSteps();
 
@@ -22,7 +26,6 @@ public class UserEditDataTests {
         userSteps.createUser(user);
         userSteps.userSignIn(user);
         userSteps.setUserAccessToken(user);
-
     }
 
     @DisplayName("Изменение email авторизованного пользователя")
@@ -65,7 +68,6 @@ public class UserEditDataTests {
     @DisplayName("Изменение email пользователя без авторизации")
     @Test
     public void userChangeEmailWithoutAuthReturnFalseTest(){
-        userSteps.createUser(user);
         userSteps.changeUserEmail(user);
 
         userSteps
@@ -79,7 +81,6 @@ public class UserEditDataTests {
     @DisplayName("Изменение пароля пользователя без авторизации")
     @Test
     public void userChangePasswordWithoutAuthReturnFalseTest(){
-        userSteps.createUser(user);
         userSteps.changeUserPassword(user);
 
         userSteps
@@ -93,7 +94,6 @@ public class UserEditDataTests {
     @DisplayName("Изменение имени пользователя без авторизации")
     @Test
     public void userChangeNameWithoutAuthReturnFalseTest(){
-        userSteps.createUser(user);
         userSteps.changeUserName(user);
 
         userSteps
@@ -106,9 +106,12 @@ public class UserEditDataTests {
 
     @After
     public void tearDown(){
+        userSteps.setUserAccessToken(user);
 
         if (user.getAccessToken() != null){
             userSteps.deleteUser(user);
+        } else {
+            System.out.println("Токен null");
         }
     }
 }

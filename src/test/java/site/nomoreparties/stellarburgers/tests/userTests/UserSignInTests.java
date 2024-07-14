@@ -13,21 +13,21 @@ import static org.hamcrest.Matchers.is;
 public class UserSignInTests {
     private User user;
     private UserSteps userSteps;
-    private String accessToken;
 
     @Before
     public void setUp(){
+        //RestAssured.filters(new RequestLoggingFilter());
+
         user = new User();
         userSteps = new UserSteps();
 
         userSteps.generateUserData(user);
+        userSteps.createUser(user);
     }
 
     @DisplayName("Успешная авторизация пользователя")
     @Test
     public void userSignInReturnTrueTest(){
-        userSteps
-                .createUser(user);
         userSteps
                 .userSignIn(user)
                 .statusCode(200)
@@ -37,38 +37,45 @@ public class UserSignInTests {
     @DisplayName("Авторизация с некорректным email")
     @Test
     public void userSignInWithInvalidEmailReturnFalseTest(){
-        userSteps
-                .createUser(user);
-        user
-                .setEmail(RandomStringUtils.randomAlphabetic(5));
+        String originEmail = user.getEmail();
+
+        userSteps.changeUserEmail(user);
+
         userSteps
                 .userSignIn(user)
                 .statusCode(401)
                 .body("success", is(false))
                 .and()
                 .body("message", is("email or password are incorrect"));
+
+        user.setEmail(originEmail);
     }
 
     @DisplayName("Авторизация с некорректным password")
     @Test
     public void userSignInWithInvalidPasswordReturnFalseTest(){
-        userSteps
-                .createUser(user);
-        user
-                .setPassword(RandomStringUtils.randomAlphabetic(10));
+        String originPassword = user.getPassword();
+
+        userSteps.changeUserPassword(user);
+
         userSteps
                 .userSignIn(user)
                 .statusCode(401)
                 .body("success", is(false))
                 .and()
                 .body("message", is("email or password are incorrect"));
+
+        user.setPassword(originPassword);
     }
 
     @After
     public void tearDown(){
+        userSteps.setUserAccessToken(user);
 
         if (user.getAccessToken() != null){
             userSteps.deleteUser(user);
+        } else {
+            System.out.println("Токен null");
         }
     }
 }
