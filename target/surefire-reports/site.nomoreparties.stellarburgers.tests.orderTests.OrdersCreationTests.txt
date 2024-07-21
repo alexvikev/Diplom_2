@@ -1,22 +1,22 @@
 -------------------------------------------------------------------------------
 Test set: site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 14.671 s <<< FAILURE! - in site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests
-orderWithInvalidIngredientHashWithoutAuth(site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests)  Time elapsed: 0.407 s  <<< FAILURE!
+Tests run: 6, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 9.345 s <<< FAILURE! - in site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests
+orderWithInvalidIngredientHashWithoutAuth(site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests)  Time elapsed: 0.301 s  <<< FAILURE!
 java.lang.AssertionError: 
 1 expectation failed.
 Expected status code <401> but was <500>.
 
 	at site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests.orderWithInvalidIngredientHashWithoutAuth(OrdersCreationTests.java:126)
 
-orderWithoutIngredientsAndWithoutAuthTest(site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests)  Time elapsed: 0.378 s  <<< FAILURE!
+orderWithoutIngredientsAndWithoutAuthTest(site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests)  Time elapsed: 0.271 s  <<< FAILURE!
 java.lang.AssertionError: 
 1 expectation failed.
 Expected status code <401> but was <400>.
 
 	at site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests.orderWithoutIngredientsAndWithoutAuthTest(OrdersCreationTests.java:96)
 
-orderWithIngredientsWithoutAuthTest(site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests)  Time elapsed: 0.816 s  <<< FAILURE!
+orderWithIngredientsWithoutAuthTest(site.nomoreparties.stellarburgers.tests.orderTests.OrdersCreationTests)  Time elapsed: 0.41 s  <<< FAILURE!
 java.lang.AssertionError: 
 1 expectation failed.
 Expected status code <401> but was <200>.
